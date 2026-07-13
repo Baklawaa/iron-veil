@@ -15,7 +15,7 @@
   <div id="status">LOADING IRON VEIL…</div>
   <script>
   (async () => {
-    const files = ["./payload/chunk-00.txt", "./payload/chunk-01.txt", "./payload/chunk-02.txt", "./payload/chunk-03.txt", "./payload/chunk-04.txt", "./payload/chunk-05.txt", "./payload/chunk-06.txt", "./payload/chunk-07.txt", "./payload/chunk-08.txt", "./payload/chunk-09.txt", "./payload/chunk-10.txt", "./payload/chunk-11.txt"];
+    const files = ["./payload.b64"];
     const parts = await Promise.all(files.map(async (url) => {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Failed to load ${url}`);
