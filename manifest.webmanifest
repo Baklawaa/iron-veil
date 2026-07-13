@@ -1,0 +1,24 @@
+{
+  "name": "Iron Veil: Outpost",
+  "short_name": "Iron Veil",
+  "description": "A complete 3D first-person wave-survival shooter playable in your browser.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#030506",
+  "theme_color": "#05090b",
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
