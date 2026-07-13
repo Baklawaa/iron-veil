@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05090b">
+  <meta name="description" content="Iron Veil: Outpost — a complete 3D first-person shooter.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon.svg">
+  <title>Iron Veil: Outpost</title>
+  <style>html,body{margin:0;width:100%;height:100%;background:#030506;color:#8de7d5;font:14px monospace;display:grid;place-items:center}#status{letter-spacing:.12em}</style>
+</head>
+<body>
+  <div id="status">LOADING IRON VEIL…</div>
+  <script>
+  (async () => {
+    const files = ["./payload/chunk-00.txt", "./payload/chunk-01.txt", "./payload/chunk-02.txt", "./payload/chunk-03.txt", "./payload/chunk-04.txt", "./payload/chunk-05.txt", "./payload/chunk-06.txt", "./payload/chunk-07.txt", "./payload/chunk-08.txt", "./payload/chunk-09.txt", "./payload/chunk-10.txt", "./payload/chunk-11.txt"];
+    const parts = await Promise.all(files.map(async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Failed to load ${url}`);
+      return response.text();
+    }));
+    const binary = atob(parts.join(''));
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const html = await new Response(stream).text();
+    document.open();
+    document.write(html);
+    document.close();
+  })().catch((error) => {
+    console.error(error);
+    document.querySelector('#status').textContent = 'FAILED TO LOAD — ' + error.message;
+  });
+  </script>
+</body>
+</html>
