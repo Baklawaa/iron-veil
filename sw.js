@@ -1,22 +1,5 @@
 const CACHE_NAME = "iron-veil-v1";
-const APP_SHELL = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./icons/icon.svg",
-  "./payload/chunk-00.txt",
-  "./payload/chunk-01.txt",
-  "./payload/chunk-02.txt",
-  "./payload/chunk-03.txt",
-  "./payload/chunk-04.txt",
-  "./payload/chunk-05.txt",
-  "./payload/chunk-06.txt",
-  "./payload/chunk-07.txt",
-  "./payload/chunk-08.txt",
-  "./payload/chunk-09.txt",
-  "./payload/chunk-10.txt",
-  "./payload/chunk-11.txt"
-];
+const APP_SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon.svg", "./payload.b64"];
 self.addEventListener("install", event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL))); self.skipWaiting(); });
 self.addEventListener("activate", event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))); self.clients.claim(); });
 self.addEventListener("fetch", event => { if (event.request.method !== "GET") return; event.respondWith(fetch(event.request).then(response => { const copy=response.clone(); caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy)); return response; }).catch(()=>caches.match(event.request).then(cached=>cached||caches.match("./index.html")))); });
