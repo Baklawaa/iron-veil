@@ -1,16 +1,27 @@
 # Iron Veil: Outpost
 
-A standalone 3D browser FPS with procedural assets, enemy waves, shooting effects, audio, HUD, pickups, and an industrial outpost map.
+A playable 3D browser FPS with procedural assets, enemy waves, shooting effects, audio, HUD, pickups, mobile controls, and an industrial outpost map.
 
 ## Play
 
-The game is deployed automatically to GitHub Pages from the `main` branch.
+The production site is published from `main` with GitHub Actions:
 
-## PWA
+**https://baklawaa.github.io/iron-veil/**
 
-The repository includes a web app manifest, install icon, and a service worker for offline caching. On a supported browser, use **Add to Home Screen** or **Install app**.
+For the first deployment, open **Repository Settings → Pages** and select **GitHub Actions** as the source. Every later push to `main` deploys automatically.
 
-## Controls
+## Install as a PWA
+
+The repository includes:
+
+- a web app manifest;
+- an installable app icon;
+- a service worker for application-shell and runtime caching;
+- standalone, landscape-oriented display settings.
+
+On a supported browser, use **Install app** or **Add to Home Screen**. The initial launch needs a network connection to load the Three.js engine; repeat launches can use the service-worker cache.
+
+## Desktop controls
 
 - **WASD** — Move
 - **Mouse** — Look
@@ -19,6 +30,16 @@ The repository includes a web app manifest, install icon, and a service worker f
 - **Shift** — Sprint
 - **Space** — Jump
 - **R** — Reload
-- **Esc** — Pause
+- **Esc** — Release pointer / pause
 
-> The current controller is designed for keyboard and mouse. The PWA can be installed on mobile devices, but touch controls are not included yet.
+## Touch controls
+
+- **Left virtual stick** — Move
+- **Drag the game view** — Look
+- **FIRE** — Shoot
+- **R** — Reload
+- **↑** — Jump
+
+## Deployment
+
+The workflow at `.github/workflows/pages.yml` packages the repository as a static Pages artifact and deploys it to the `github-pages` environment. The `.nojekyll` marker keeps the game files untouched by Jekyll processing.
